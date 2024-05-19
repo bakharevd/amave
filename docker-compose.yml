@@ -11,7 +11,7 @@ services:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     networks:
-      - private_network
+      - am
 
   backend:
     build: ./backend
@@ -25,7 +25,7 @@ services:
     environment:
       - DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db/${POSTGRES_DB}
     networks:
-      - private_network
+      - am
 
   frontend:
     build:
@@ -39,7 +39,7 @@ services:
     environment:
       - NODE_ENV=development
     networks:
-      - private_network
+      - am
 
   nginx:
     build:
@@ -53,19 +53,18 @@ services:
     environment:
       - PORT=${PORT}
       - SERVER_NAME=${DOMAIN}
-      - SSL_CERTIFICATE_PATH=${SSL_CERTIFICATE_PATH}
       - SSL_CERTIFICATE_KEY_PATH=${SSL_CERTIFICATE_KEY_PATH}
       - SSL_CERTIFICATE_CHAIN_PATH=${SSL_CERTIFICATE_CHAIN_PATH}
     depends_on:
       - backend
       - frontend
     networks:
-      - private_network
+      - am
 
 
 volumes:
   postgres_data:
 
 networks:
-  private_network:
-    external: true
+  am:
+    driver: bridge

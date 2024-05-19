@@ -19,5 +19,5 @@ from .views import message_list
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('messages/', message_list, name='message_list'),
+    path('api/messages/', message_list, name='message_list'),
 ]
