@@ -7,9 +7,12 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     environment:
-      - POSTGRES_DB=amave
-      - POSTGRES_USER=amave_user
-      - POSTGRES_PASSWORD=ytCkjvfnm()22
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    networks:
+      - private_network
+
   backend:
     build: ./backend
     command: python manage.py runserver 0.0.0.0:8000
@@ -20,7 +23,10 @@ services:
     depends_on:
       - db
     environment:
-      - DATABASE_URL=postgres://amave_user:ytCkjvfnm()22@db/amave
+      - DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db/${POSTGRES_DB}
+    networks:
+      - private_network
+
   frontend:
     build:
       context: ./frontend
@@ -32,5 +38,34 @@ services:
       - "8080:8080"
     environment:
       - NODE_ENV=development
+    networks:
+      - private_network
+
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    ports:
+      - "${PORT}:${PORT}"
+    volumes:
+      - ./nginx/nginx.conf.template:/etc/nginx/nginx.conf.template
+      - ${SOURCE_SSL_DIR}:/etc/ssl/certs:ro
+    environment:
+      - PORT=${PORT}
+      - SERVER_NAME=${DOMAIN}
+      - SSL_CERTIFICATE_PATH=${SSL_CERTIFICATE_PATH}
+      - SSL_CERTIFICATE_KEY_PATH=${SSL_CERTIFICATE_KEY_PATH}
+      - SSL_CERTIFICATE_CHAIN_PATH=${SSL_CERTIFICATE_CHAIN_PATH}
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - private_network
+
+
 volumes:
   postgres_data:
+
+networks:
+  private_network:
+    external: true

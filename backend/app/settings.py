@@ -24,7 +24,7 @@ SECRET_KEY = 'django-insecure-h3s-j(*v6u4g_a+e0dc2j=23r0tn3)w9q7_q_o_025796v3=n+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['amave.ru', 'www.amave.ru', 'localhost', '127.0.0.1', '[::1]']
 
 # Application definition
 
@@ -36,7 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
-    'amave',
+    'app',
 ]
 
 MIDDLEWARE = [
@@ -66,6 +66,10 @@ TEMPLATES = [
             ],
         },
     },
+]
+
+CORS_ORIGIN_WHITELIST = [
+    'http://amave.ru',
 ]
 
 WSGI_APPLICATION = 'app.wsgi.application'

@@ -1,0 +1,42 @@
+events {
+    worker_connections 1024;
+}
+
+http {
+    resolver  127.0.0.11 valid=10s;
+
+    # Конфигурация сервера для HTTPS
+    server {
+        listen ${PORT} ssl;
+        server_name ${SERVER_NAME};
+
+        ssl_certificate     ${SSL_CERTIFICATE_PATH};
+        ssl_certificate_key ${SSL_CERTIFICATE_KEY_PATH};
+        ssl_trusted_certificate ${SSL_CERTIFICATE_CHAIN_PATH};
+
+        # Проксирование запросов к API на бэкенд
+        location /api {
+            proxy_pass http://backend:8000;
+            proxy_set_header Host ${DOLLAR}host;
+            proxy_set_header X-Real-IP ${DOLLAR}remote_addr;
+            proxy_set_header X-Forwarded-For ${DOLLAR}proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto ${DOLLAR}scheme;
+        }
+
+        # Проксирование остальных запросов на фронтенд
+        location / {
+            proxy_pass http://frontend:8080;
+            proxy_set_header Host ${DOLLAR}host;
+            proxy_set_header X-Real-IP ${DOLLAR}remote_addr;
+            proxy_set_header X-Forwarded-For ${DOLLAR}proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto ${DOLLAR}scheme;
+        }
+    }
+
+    # Конфигурация сервера для HTTP (перенаправление на HTTPS)
+    server {
+        listen 80;
+        server_name ${SERVER_NAME} www.${SERVER_NAME};
+        return 301 https://${DOLLAR}host${DOLLAR}request_uri;
+    }
+}
