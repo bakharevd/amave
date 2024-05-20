@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -24,7 +24,8 @@ SECRET_KEY = 'django-insecure-h3s-j(*v6u4g_a+e0dc2j=23r0tn3)w9q7_q_o_025796v3=n+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['amave.ru', 'www.amave.ru', 'localhost', '127.0.0.1', 'backend']
+# ALLOWED_HOSTS = ['amave.ru', 'www.amave.ru', 'localhost', '127.0.0.1', 'backend']
+ALLOWED_HOSTS = [os.environ.get('DOMAIN'), 'localhost', '127.0.0.1', 'backend']
 
 # Application definition
 
@@ -109,9 +110,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'ru-ru'
+LANGUAGE_CODE = 'ru'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Novosibirsk'
 
 USE_I18N = True
 

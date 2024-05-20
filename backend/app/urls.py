@@ -18,6 +18,6 @@ from django.urls import path
 from .views import message_list
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    # path('admin/', admin.site.urls),
     path('api/messages/', message_list, name='message_list'),
 ]
