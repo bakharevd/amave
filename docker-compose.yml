@@ -24,8 +24,6 @@ services:
       - db
     env_file:
       - .env
-    environment:
-      - DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db/${POSTGRES_DB}
     networks:
       - am
 
