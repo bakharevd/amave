@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Home Page</h1>
-    <p>Welcome to the Home page!</p>
+    <p>Welcome! You are logged in.</p>
     <button @click="logout">Logout</button>
   </div>
 </template>
@@ -20,7 +20,7 @@ export default {
       router.push('/login');
     };
 
-    return { logout };
-  }
-}
+    return {logout};
+  },
+};
 </script>

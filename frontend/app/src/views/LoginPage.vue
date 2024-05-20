@@ -2,14 +2,8 @@
   <div>
     <h1>Login Page</h1>
     <form @submit.prevent="login">
-      <div>
-        <label for="username">Username:</label>
-        <input id="username" v-model="username" type="text">
-      </div>
-      <div>
-        <label for="password">Password:</label>
-        <input id="password" v-model="password" type="password">
-      </div>
+      <input v-model="credentials.username" type="text" placeholder="Username">
+      <input v-model="credentials.password" type="password" placeholder="Password">
       <button type="submit">Login</button>
     </form>
   </div>
@@ -24,19 +18,18 @@ export default {
   setup() {
     const store = useStore();
     const router = useRouter();
-    const username = ref('');
-    const password = ref('');
+    const credentials = ref({ username: '', password: '' });
 
     const login = async () => {
       try {
-        await store.dispatch('login', { username: username.value, password: password.value });
+        await store.dispatch('login', credentials.value);
         router.push('/');
       } catch (error) {
-        console.error(error);
+        alert('Login failed');
       }
     };
 
-    return { username, password, login };
-  }
-}
+    return {credentials, login};
+  },
+};
 </script>

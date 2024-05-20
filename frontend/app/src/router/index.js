@@ -3,23 +3,26 @@ import HomePage from '../views/HomePage.vue';
 import LoginPage from '../views/LoginPage.vue';
 import store from '../store';
 
-const routes = [
-    {
-        path: '/',
-        name: 'HomePage',
-        component: HomePage,
-        meta: {requiresAuth: true}
-    },
-    {
-        path: '/login',
-        name: 'LoginPage',
-        component: LoginPage
-    }
-];
-
 const router = createRouter({
-    history: createWebHistory(process.env.BASE_URL),
-    routes
+    history: createWebHistory(),
+    routes: [
+        {
+            path: '/',
+            name: 'Home',
+            component: HomePage,
+            meta: {requiresAuth: true}
+        },
+        {
+            path: '/login',
+            name: 'Login',
+            component: LoginPage
+        },
+        {
+            path: '/register',
+            name: 'Register',
+            component: () => import('../views/RegisterPage.vue')
+        },
+    ]
 });
 
 router.beforeEach((to, from, next) => {
