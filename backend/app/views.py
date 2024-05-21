@@ -1,6 +1,12 @@
-from django.http import JsonResponse
-from .models import Message
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from .serializers import CustomRegisterSerializer
 
-def message_list(request):
-    messages = Message.objects.all().values('id', 'text')
-    return JsonResponse(list(messages), safe=False)
+class CustomRegisterView(APIView):
+    def post(self, request, *args, **kwargs):
+        serializer = CustomRegisterSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"message": "Вы успешно зарегистрировались"}, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
