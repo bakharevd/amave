@@ -1,22 +1,22 @@
 <template>
   <div class="container mt-5">
     <h1>Register</h1>
-    <form @submit.prevent="register" class="mt-3">
+    <form @submit.prevent="register" class="mt-3" autocomplete="off">
       <div class="mb-3">
         <label for="username" class="form-label">Username</label>
-        <input type="text" class="form-control" id="username" v-model="user.username" required>
+        <input type="text" autocomplete="off" class="form-control" id="username" v-model="user.username" required>
       </div>
       <div class="mb-3">
         <label for="email" class="form-label">Email</label>
-        <input type="email" class="form-control" id="email" v-model="user.email">
+        <input type="email" autocomplete="off" class="form-control" id="email" v-model="user.email">
       </div>
       <div class="mb-3">
         <label for="password1" class="form-label">Password</label>
-        <input type="password" class="form-control" id="password1" v-model="user.password1" required>
+        <input type="password" autocomplete="off" class="form-control" id="password1" v-model="user.password1" required>
       </div>
       <div class="mb-3">
         <label for="password2" class="form-label">Confirm Password</label>
-        <input type="password" class="form-control" id="password2" v-model="user.password2" required>
+        <input type="password" autocomplete="off" class="form-control" id="password2" v-model="user.password2" required>
       </div>
       <button type="submit" class="btn btn-primary">Register</button>
     </form>

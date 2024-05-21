@@ -1,18 +1,30 @@
 <template>
   <div id="app">
     <router-view></router-view>
-    <MessageList/>
+    <AppNotification ref="notifications"/>
   </div>
 </template>
 
 <script>
-import MessageList from './components/MessageList.vue';
+import {EventBus} from "@/EventBus";
+import AppNotification from './components/AppNotification.vue';
 
 export default {
   name: 'App',
   components: {
-    MessageList
-  }
+    AppNotification,
+  },
+  mounted() {
+    EventBus.on('notify', this.handleNotification);
+  },
+  beforeUnmount() {
+    EventBus.off('notify', this.handleNotification);
+  },
+  methods: {
+    handleNotification({message, type}) {
+      !this.$refs.notifications.addNotification({message, type});
+    },
+  },
 };
 </script>
 
