@@ -1,24 +1,24 @@
 <template>
-  <div>
+  <div class="container mt-5">
     <h1>Register</h1>
-    <form @submit.prevent="register">
-      <div>
-        <label for="username">Username:</label>
-        <input id="username" v-model="username" type="text" required>
+    <form @submit.prevent="register" class="mt-3">
+      <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input type="text" class="form-control" id="username" v-model="user.username" required>
       </div>
-      <div>
-        <label for="email">Email:</label>
-        <input id="email" v-model="email" type="email" required>
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" id="email" v-model="user.email">
       </div>
-      <div>
-        <label for="password1">Password:</label>
-        <input id="password1" v-model="password1" type="password" required>
+      <div class="mb-3">
+        <label for="password1" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password1" v-model="user.password1" required>
       </div>
-      <div>
-        <label for="password2">Confirm Password:</label>
-        <input id="password2" v-model="password2" type="password" required>
+      <div class="mb-3">
+        <label for="password2" class="form-label">Confirm Password</label>
+        <input type="password" class="form-control" id="password2" v-model="user.password2" required>
       </div>
-      <button type="submit">Register</button>
+      <button type="submit" class="btn btn-primary">Register</button>
     </form>
   </div>
 </template>
@@ -32,32 +32,23 @@ export default {
   setup() {
     const store = useStore();
     const router = useRouter();
-    const username = ref('');
-    const email = ref('');
-    const password1 = ref('');
-    const password2 = ref('');
+    const user = ref({
+      username: '',
+      email: '',
+      password1: '',
+      password2: '',
+    });
 
     const register = async () => {
       try {
-        await store.dispatch('register', {
-          username: username.value,
-          email: email.value,
-          password1: password1.value,
-          password2: password2.value,
-        });
+        await store.dispatch('register', user.value);
         router.push('/login');
       } catch (error) {
         console.error('Registration failed:', error);
       }
     };
 
-    return {
-      username,
-      email,
-      password1,
-      password2,
-      register,
-    };
+    return { user, register };
   },
 };
 </script>

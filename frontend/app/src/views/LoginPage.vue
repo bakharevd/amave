@@ -1,10 +1,16 @@
 <template>
-  <div>
-    <h1>Login Page</h1>
-    <form @submit.prevent="login">
-      <input v-model="credentials.username" type="text" placeholder="Username">
-      <input v-model="credentials.password" type="password" placeholder="Password">
-      <button type="submit">Login</button>
+  <div class="container mt-5">
+    <h1>Login</h1>
+    <form @submit.prevent="login" class="mt-3">
+      <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input type="text" class="form-control" id="username" v-model="credentials.username" required>
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password" v-model="credentials.password" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Login</button>
     </form>
   </div>
 </template>
@@ -25,11 +31,11 @@ export default {
         await store.dispatch('login', credentials.value);
         router.push('/');
       } catch (error) {
-        alert('Login failed');
+        console.error('Login failed:', error);
       }
     };
 
-    return {credentials, login};
+    return { credentials, login };
   },
 };
 </script>
