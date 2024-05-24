@@ -1,0 +1,9 @@
+$primary: #9966CC;
+$btn-font-weight: 600;
+.btn-primary {
+  --bs-btn-color: #fff!important;
+  --bs-btn-hover-color: #fff!important;
+}
+
+
+@import "../../node_modules/bootstrap/scss/bootstrap";

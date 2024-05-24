@@ -1,0 +1,48 @@
+body {
+    font-size: .875rem;
+}
+
+.container-auth {
+    flex-direction: column;
+    align-items: center;
+    display: flex;
+}
+
+.container-auth > fieldset {
+    box-shadow: 5px 27px 30px 0 rgba(0, 0, 0, 0.2);
+    padding: 4rem;
+}
+
+fieldset > legend {
+    float: none;
+}
+
+.form-floating > label {
+    font-size: 1rem;
+    opacity: .5;
+}
+
+.form-floating > input {
+    width: 20vw;
+}
+
+.button-auth {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.button-auth > button {
+    width: 10vw;
+    margin: 5px;
+}
+
+.container-auth > a {
+    width: 7vw;
+    margin: 5px;
+    font-size: unset;
+}
+
+.button-auth > div {
+    margin: 0 !important;
+}

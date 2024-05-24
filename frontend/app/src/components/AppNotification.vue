@@ -32,8 +32,8 @@ export default {
 <style scoped>
 .notification-container {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  top: 20px;
+  left: 20px;
   z-index: 1000;
 }
 
@@ -48,6 +48,7 @@ export default {
   align-items: center;
   justify-content: space-between;
   max-width: 300px;
+  opacity: .75;
 }
 
 .notification.error {
@@ -65,6 +66,7 @@ export default {
 .list-enter-active, .list-leave-active {
   transition: all 0.5s ease;
 }
+
 .list-enter, .list-leave-to {
   opacity: 0;
   transform: translateY(20px);
